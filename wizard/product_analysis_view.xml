@@ -25,13 +25,14 @@
                     <field name="product_analysis_detail_ids" mode="tree">
                         <tree string="Detail" >
                             <field name="product_id" />
+                            <field name="qty_product" />
                             <field name="product_incomming" />
                             <field name="product_outgoing" />
-                            <field name="qty_product" />
+                            <field name="qty_available" />
                             <field name="qty_return" />
+                            <field name="qty_rejected" />
                             <field name="qty_sale" />
                             <field name="qty_total_sale" />
-                            <field name="qty_rejected" />
                         </tree>
                     </field>
                 </sheet>
