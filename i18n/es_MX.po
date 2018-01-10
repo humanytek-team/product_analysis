@@ -1,0 +1,148 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* product_analysis
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-10 15:13+0000\n"
+"PO-Revision-Date: 2018-01-10 15:13+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_analysis
+#: model:ir.actions.act_window,name:product_analysis.action_stock_kardex
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_product_analysis_id
+msgid "Analysis"
+msgstr "Análisis"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_qty_available
+msgid "Available"
+msgstr "Disponible"
+
+#. module: product_analysis
+#: model:ir.ui.view,arch_db:product_analysis.product_analysis_view
+msgid "Calculate"
+msgstr "Calcular"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_create_uid
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_create_date
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_product_analysis_detail_ids
+#: model:ir.ui.view,arch_db:product_analysis.product_analysis_view
+#: model:ir.ui.view,arch_db:product_analysis.product_template_analysis_form_view
+msgid "Detail"
+msgstr "Detalle"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_display_name
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_display_name
+msgid "Display Name"
+msgstr "Nombre desplegado"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_date_end
+msgid "End Date"
+msgstr "Fecha final"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_id
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_id
+msgid "ID"
+msgstr "ID"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_product_incomming
+msgid "Incoming Products"
+msgstr "Productos Entrantes"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis___last_update
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail___last_update
+msgid "Last Modified on"
+msgstr "Ultima modificacion realizada"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_write_uid
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_write_uid
+msgid "Last Updated by"
+msgstr "Ultima actualizacion por"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_write_date
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización realizada"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_product_outgoing
+msgid "Outgoing Products"
+msgstr "Productos Salientes"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_product_id
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_analysis
+#: model:ir.model,name:product_analysis.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_qty_product
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_qty_return
+msgid "Quantity Return"
+msgstr "Devoluciones"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_qty_rejected
+msgid "Rejected"
+msgstr "Negados"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_qty_sale
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_date_start
+msgid "Start Date"
+msgstr "Fecha inicial"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_qty_total_sale
+msgid "Total Sales Quantity"
+msgstr "Cantidad Total de Ventas"
+
+#. module: product_analysis
+#: model:ir.model,name:product_analysis.model_product_analysis
+msgid "product.analysis"
+msgstr "product.analysis"
+
+#. module: product_analysis
+#: model:ir.model,name:product_analysis.model_product_analysis_detail
+msgid "product.analysis.detail"
+msgstr "product.analysis.detail"
+
