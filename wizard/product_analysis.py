@@ -43,6 +43,7 @@ class ProductAnalysis(models.TransientModel):
         date = date_end - date_start
         products = ProductProduct.search([
                         ('product_tmpl_id.id', '=', self.product_id.id)])
+        ProductAnalysisDetail.search([]).unlink()
         for product in products:
             stock_moves = StockMove.search([
                         ('product_id.id', '=', product.id),
@@ -55,7 +56,7 @@ class ProductAnalysis(models.TransientModel):
                         #('location_dest_id.scrap_location', '=', False)
                         ],
                             order='date')
-            ProductAnalysisDetail.search([]).unlink()
+
             product_outgoing = product_incomming = qty = qty_return = 0
             for stock_move in stock_moves:
                 if stock_move.picking_type_id.code == 'incoming':
