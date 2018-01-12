@@ -28,10 +28,11 @@
     'website': "http://www.humanytek.com",
     'category': 'Sale',
     'version': '1.0.0',
-    'depends': ['sale', 'product_rejected'],
+    'depends': ['sale', 'product_rejected', 'product_rotation'],
     'data': [
         'wizard/product_analysis_view.xml',
         'views/product_view.xml',
+        'security/ir.model.access.csv',
     ],
     'demo': [
     ],

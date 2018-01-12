@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-10 20:44+0000\n"
-"PO-Revision-Date: 2018-01-10 20:44+0000\n"
+"POT-Creation-Date: 2018-01-12 14:36+0000\n"
+"PO-Revision-Date: 2018-01-12 14:36+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -120,6 +120,11 @@ msgstr "Devoluciones"
 #: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_qty_rejected
 msgid "Rejected"
 msgstr "Negados"
+
+#. module: product_analysis
+#: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_name_rotation
+msgid "Rotation"
+msgstr "Rotación"
 
 #. module: product_analysis
 #: model:ir.model.fields,field_description:product_analysis.field_product_analysis_detail_qty_sale

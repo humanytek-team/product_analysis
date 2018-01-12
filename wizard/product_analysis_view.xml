@@ -31,6 +31,7 @@
                             <field name="qty_available" />
                             <field name="qty_return" />
                             <field name="qty_rejected" />
+                            <field name="name_rotation" />
                             <field name="qty_sale" />
                             <field name="qty_total_sale" />
                         </tree>
