@@ -64,7 +64,7 @@ class ProductAnalysis(models.TransientModel):
                 else:
                     product_outgoing += stock_move.product_uom_qty
             stock_moves_ini = StockMove.search([
-                        ('product_id.id', '=', self.product_id.id),
+                        ('product_id.id', '=', product.id),
                         ('date', '<', self.date_end),
                         ('state', '=', 'done'),
                         '|',
@@ -79,7 +79,7 @@ class ProductAnalysis(models.TransientModel):
                     qty -= move_ini.product_uom_qty
             total_sale = qty_sale = qty_rejected = 0
             stock_moves_sale = StockMove.search([
-                        ('product_id.id', '=', self.product_id.id),
+                        ('product_id.id', '=', product.id),
                         ('state', 'in', ['done', 'assigned']),
                         ('picking_type_id.code', '=', 'outgoing'),
                         ('location_dest_id.scrap_location', '=', False)
@@ -89,7 +89,7 @@ class ProductAnalysis(models.TransientModel):
                 if move_sale.date >= self.date_start and move_sale.date <= self.date_end:
                     qty_sale += move_sale.product_uom_qty
             stock_moves_return = StockMove.search([
-                        ('product_id.id', '=', self.product_id.id),
+                        ('product_id.id', '=', product.id),
                         ('date', '>=', self.date_start),
                         ('date', '<=', self.date_end),
                         ('state', '=', 'done'),
