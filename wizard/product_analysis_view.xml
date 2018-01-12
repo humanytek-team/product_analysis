@@ -25,15 +25,15 @@
                     <field name="product_analysis_detail_ids" mode="tree">
                         <tree string="Detail" >
                             <field name="product_id" />
-                            <field name="qty_product" />
-                            <field name="product_incomming" />
-                            <field name="product_outgoing" />
-                            <field name="qty_available" />
-                            <field name="qty_return" />
-                            <field name="qty_rejected" />
+                            <field name="qty_product" sum='Total'/>
+                            <field name="product_incomming" sum='Total' />
+                            <field name="product_outgoing" sum='Total' />
+                            <field name="qty_available" sum='Total' />
+                            <field name="qty_return" sum='Total' />
+                            <field name="qty_rejected" sum='Total' />
                             <field name="name_rotation" />
-                            <field name="qty_sale" />
-                            <field name="qty_total_sale" />
+                            <field name="qty_sale" sum='Total' />
+                            <field name="qty_total_sale" sum='Total' />
                         </tree>
                     </field>
                 </sheet>
