@@ -21,6 +21,7 @@
 ###############################################################################
 
 from openerp import api, fields, models
+import datetime
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -32,10 +33,14 @@ class ProductAnalysis(models.TransientModel):
     def calculate(self):
         ProductProduct = self.env['product.product']
         ProductRejected = self.env['product.rejected']
+        ProductRotation = self.env['product.rotation']
         ProductAnalysisDetail = self.env['product.analysis.detail']
         StockMove = self.env['stock.move']
-        #qty = 0
-        #qty_reserve = 0
+        date_end = datetime.datetime.strptime(self.date_end,
+                                                '%Y-%m-%d %H:%M:%S')
+        date_start = datetime.datetime.strptime(self.date_start,
+                                                '%Y-%m-%d %H:%M:%S')
+        date = date_end - date_start
         products = ProductProduct.search([
                         ('product_tmpl_id.id', '=', self.product_id.id)])
         for product in products:
@@ -55,10 +60,8 @@ class ProductAnalysis(models.TransientModel):
             for stock_move in stock_moves:
                 if stock_move.picking_type_id.code == 'incoming':
                     product_incomming += stock_move.product_uom_qty
-                    #qty -= stock_move.product_uom_qty
                 else:
                     product_outgoing += stock_move.product_uom_qty
-                    #qty += stock_move.product_uom_qty
             stock_moves_ini = StockMove.search([
                         ('product_id.id', '=', self.product_id.id),
                         ('date', '<', self.date_end),
@@ -103,8 +106,16 @@ class ProductAnalysis(models.TransientModel):
                         ])
             for product_rejected in product_rejecteds:
                 qty_rejected += product_rejected.qty
+            product_rotations = ProductRotation.search([
+                        ('product_id.id', '=', product.id),
+                        ('start_date', '>=', self.date_start),
+                        ('end_date', '<=', self.date_end),
+                        ])
+            name_rotation = ''
+            if product_rotations:
+                if product_rotations[0].product_rotation_parameter_id:
+                    name_rotation = product_rotations[0].product_rotation_parameter_id.name
             ProductAnalysisDetail.create({
-                    #'stock_move_id': stock_move.id,
                     'product_id': product.id,
                     'product_analysis_id': self.id,
                     'qty_product': qty,
@@ -113,8 +124,9 @@ class ProductAnalysis(models.TransientModel):
                     'product_outgoing': product_outgoing,
                     'qty_available': qty + product_incomming - product_outgoing,
                     'qty_total_sale': total_sale,
-                    'qty_sale': qty_sale,
+                    'qty_sale': qty_sale / date.days,
                     'qty_rejected': qty_rejected,
+                    'name_rotation': name_rotation
                     })
         return {
                 'type': 'ir.actions.act_window',
@@ -142,7 +154,6 @@ class ProductAnalysisDetail(models.TransientModel):
 
     product_analysis_id = fields.Many2one('product.analysis', 'Analysis')
     product_id = fields.Many2one('product.product', 'Product', required=True)
-    #stock_move_id = fields.Many2one('stock.move', 'Move', readonly=True)
     qty_product = fields.Float('Quantity', readonly=True)
     product_incomming = fields.Float('Incoming Products', readonly=True)
     product_outgoing = fields.Float('Outgoing Products', readonly=True)
@@ -151,3 +162,4 @@ class ProductAnalysisDetail(models.TransientModel):
     qty_total_sale = fields.Float('Total Sales Quantity', readonly=True)
     qty_sale = fields.Float('Sales', readonly=True)
     qty_rejected = fields.Float('Rejected', readonly=True)
+    name_rotation = fields.Char('Rotation', readonly=True)
