@@ -77,6 +77,21 @@ class ProductAnalysis(models.TransientModel):
                     qty += move_ini.product_uom_qty
                 else:
                     qty -= move_ini.product_uom_qty
+            stock_moves_ini_adjust = StockMove.search([
+                        ('product_id.id', '=', product.id),
+                        ('date', '<', self.date_end),
+                        ('state', '=', 'done'),
+                        '|',
+                        ('location_id.usage', '=', 'inventory'),
+                        ('location_dest_id.usage', '=', 'inventory'),
+                        #('location_dest_id.scrap_location', '=', False)
+                        ])
+            for move_ini_adjust in stock_moves_ini_adjust:
+                if move_ini_adjust.location_id.usage == 'inventory':
+                    qty += move_ini_adjust.product_uom_qty
+                else:
+                    qty -= move_ini_adjust.product_uom_qty
+
             total_sale = qty_sale = qty_rejected = 0
             stock_moves_sale = StockMove.search([
                         ('product_id.id', '=', product.id),
