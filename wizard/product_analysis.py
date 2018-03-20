@@ -22,6 +22,7 @@
 
 from openerp import api, fields, models
 import datetime
+from dateutil import relativedelta
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -63,34 +64,55 @@ class ProductAnalysis(models.TransientModel):
                     product_incomming += stock_move.product_uom_qty
                 else:
                     product_outgoing += stock_move.product_uom_qty
+            #stock_moves_ini = StockMove.search([
+                        #('product_id.id', '=', product.id),
+                        #('date', '<', self.date_end),
+                        #('state', '=', 'done'),
+                        #'|',
+                        #('picking_type_id.code', '=', 'incoming'),
+                        #('picking_type_id.code', '=', 'outgoing'),
+                        ##('location_dest_id.scrap_location', '=', False)
+                        #])
             stock_moves_ini = StockMove.search([
                         ('product_id.id', '=', product.id),
                         ('date', '<', self.date_end),
                         ('state', '=', 'done'),
-                        '|',
-                        ('picking_type_id.code', '=', 'incoming'),
-                        ('picking_type_id.code', '=', 'outgoing'),
-                        #('location_dest_id.scrap_location', '=', False)
+                        #'|',
+                        #('picking_type_id.code', '=', 'incoming'),
+                        #('picking_type_id.code', '=', 'outgoing'),
+                        ('location_id.usage', '=', 'internal')
                         ])
             for move_ini in stock_moves_ini:
-                if move_ini.picking_type_id.code == 'incoming':
-                    qty += move_ini.product_uom_qty
-                else:
+                #if move_ini.picking_type_id.code == 'incoming':
                     qty -= move_ini.product_uom_qty
-            stock_moves_ini_adjust = StockMove.search([
+                #else:
+                    #qty -= move_ini.product_uom_qty
+            #stock_moves_ini_adjust = StockMove.search([
+                        #('product_id.id', '=', product.id),
+                        #('date', '<', self.date_end),
+                        #('state', '=', 'done'),
+                        #'|',
+                        #('location_id.usage', '=', 'inventory'),
+                        #('location_dest_id.usage', '=', 'inventory'),
+                        ##('location_dest_id.scrap_location', '=', False)
+                        #])
+            #for move_ini_adjust in stock_moves_ini_adjust:
+                #if move_ini_adjust.location_id.usage == 'inventory':
+                    #qty += move_ini_adjust.product_uom_qty
+                #else:
+                    #qty -= move_ini_adjust.product_uom_qty
+            stock_moves_ini = StockMove.search([
                         ('product_id.id', '=', product.id),
                         ('date', '<', self.date_end),
                         ('state', '=', 'done'),
-                        '|',
-                        ('location_id.usage', '=', 'inventory'),
-                        ('location_dest_id.usage', '=', 'inventory'),
-                        #('location_dest_id.scrap_location', '=', False)
+                        #'|',
+                        #('picking_type_id.code', '=', 'incoming'),
+                        #('picking_type_id.code', '=', 'outgoing'),
+                        ('location_dest_id.usage', '=', 'internal')
                         ])
-            for move_ini_adjust in stock_moves_ini_adjust:
-                if move_ini_adjust.location_id.usage == 'inventory':
-                    qty += move_ini_adjust.product_uom_qty
-                else:
-                    qty -= move_ini_adjust.product_uom_qty
+            for move_ini in stock_moves_ini:
+                #if move_ini.picking_type_id.code == 'incoming':
+                    qty += move_ini.product_uom_qty
 
             total_sale = qty_sale = qty_rejected = 0
             stock_moves_sale = StockMove.search([
@@ -109,7 +131,8 @@ class ProductAnalysis(models.TransientModel):
                         ('date', '<=', self.date_end),
                         ('state', '=', 'done'),
                         '|',
-                        ('picking_type_id.code', '=', 'incoming'),
+                        #('picking_type_id.code', '=', 'incoming'),
+                        ('location_id.usage', '=', 'customer'),
                         ('location_dest_id.scrap_location', '=', True)
                         ])
             for move_ret in stock_moves_return:
@@ -153,6 +176,15 @@ class ProductAnalysis(models.TransientModel):
                 'views': [(False, 'form')],
                 'target': 'new',
                 }
+
+    @api.onchange('date_start')
+    def onchange_date_start(self):
+        if self.date_start:
+            date_s = self.date_start.split(' ')
+            date_start_convert = datetime.datetime.strptime(
+                                                   date_s[0], '%Y-%m-%d').date()
+            self.date_end = date_start_convert + relativedelta.relativedelta(
+                                                                  days=int(30))
 
     product_id = fields.Many2one('product.template', 'Product', required=True,
                         default=lambda self: self._context.get('product_id'))
