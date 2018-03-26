@@ -130,10 +130,10 @@ class ProductAnalysis(models.TransientModel):
                         ('date', '>=', self.date_start),
                         ('date', '<=', self.date_end),
                         ('state', '=', 'done'),
-                        '|',
+                        #'|',
                         #('picking_type_id.code', '=', 'incoming'),
                         ('location_id.usage', '=', 'customer'),
-                        ('location_dest_id.scrap_location', '=', True)
+                        #('location_dest_id.return_location', '=', True)
                         ])
             for move_ret in stock_moves_return:
                 qty_return += move_ret.product_uom_qty
@@ -177,21 +177,25 @@ class ProductAnalysis(models.TransientModel):
                 'target': 'new',
                 }
 
-    @api.onchange('date_start')
-    def onchange_date_start(self):
-        if self.date_start:
-            date_s = self.date_start.split(' ')
-            date_start_convert = datetime.datetime.strptime(
-                                                   date_s[0], '%Y-%m-%d').date()
-            self.date_end = date_start_convert + relativedelta.relativedelta(
-                                                                  days=int(30))
+    #@api.onchange('date_start')
+    #def onchange_date_start(self):
+        #if self.date_start:
+            #date_s = self.date_start.split(' ')
+            #date_start_convert = datetime.datetime.strptime(
+                                                   #date_s[0], '%Y-%m-%d').date()
+            #self.date_end = date_start_convert + relativedelta.relativedelta(
+                                                                  #days=int(30))
 
     product_id = fields.Many2one('product.template', 'Product', required=True,
                         default=lambda self: self._context.get('product_id'))
     date_start = fields.Datetime('Start Date',
-                                    required=True)
+        required=True,
+        default=lambda self: datetime.datetime.now() - relativedelta.relativedelta(
+                                                              days=int(30)))
     date_end = fields.Datetime('End Date',
-                                    required=True)
+                                    required=True,
+                                    default=lambda self: datetime.datetime.now()
+                                    )
     product_analysis_detail_ids = fields.One2many('product.analysis.detail',
                             'product_analysis_id',
                             'Detail')
