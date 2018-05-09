@@ -117,7 +117,7 @@ class ProductAnalysis(models.TransientModel):
             total_sale = qty_sale = qty_rejected = 0
             stock_moves_sale = StockMove.search([
                         ('product_id.id', '=', product.id),
-                        ('state', 'in', ['done', 'assigned']),
+                        ('state', 'in', ['done']),
                         ('picking_type_id.code', '=', 'outgoing'),
                         ('location_dest_id.scrap_location', '=', False)
                         ])
